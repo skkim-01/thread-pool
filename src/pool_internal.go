@@ -19,6 +19,7 @@ func (p *Pool) _initWorkers() {
 func (p *Pool) _closeForce() {
 	// Stop add task
 	p._isRunning = false
+	defer close(p.TaskQueue)
 
 	// Flush task channel
 	for {
@@ -44,7 +45,6 @@ func (p *Pool) _closeWait() {
 	// Stop add task
 	p._isRunning = false
 	defer close(p.TaskQueue)
-	defer close(p.TaskDoneChannal)
 
 	// Wait for flush queue
 	for 0 >= len(p.TaskQueue) {

@@ -8,7 +8,6 @@ import (
 
 type Pool struct {
 	TaskQueue         chan *Task.Task    // Thread Pool Task Queue
-	TaskDoneChannal   chan bool          // task done
 	MapWorkerThreads  map[string]*Worker // workers
 	_maxTaskQueueSize int32              // Task channel Size
 	_activeWorkerSize int32              // Active Worker Size
@@ -24,7 +23,6 @@ func NewPool() *Pool {
 	// Create Pool Object
 	p := Pool{
 		TaskQueue:         make(chan *Task.Task, maxWorker*4),
-		TaskDoneChannal:   make(chan bool, maxWorker),
 		MapWorkerThreads:  make(map[string]*Worker),
 		_maxTaskQueueSize: maxWorker * 4,
 		_activeWorkerSize: 0,
